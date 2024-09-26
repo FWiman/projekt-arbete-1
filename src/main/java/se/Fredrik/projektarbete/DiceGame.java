@@ -7,6 +7,8 @@ public class DiceGame {
     private Scoreboard scoreboard;
     private int maxRounds;
 
+    Scanner sc = new Scanner(System.in);
+
 
     public DiceGame() {
         scoreboard = new Scoreboard();
@@ -44,7 +46,8 @@ public class DiceGame {
 
     private void startSingleplayer() {
 
-        Player player = new Player("Player");
+        System.out.println("Enter your username: ");
+        Player player = new Player(sc.nextLine());
         Player ai = new Player("AI");
         scoreboard.addPlayer(player);
         scoreboard.addPlayer(ai);
@@ -61,8 +64,11 @@ public class DiceGame {
 
 
     private void startMultiplayer() {
-        Player player1 = new Player("Player 1");
-        Player player2 = new Player("Player 2");
+
+        System.out.println("Enter player 1's username: ");
+        Player player1 = new Player(sc.nextLine());
+        System.out.println("Enter player 2's username: ");
+        Player player2 = new Player(sc.nextLine());
         scoreboard.addPlayer(player1);
         scoreboard.addPlayer(player2);
 
@@ -78,11 +84,14 @@ public class DiceGame {
     private void playRound(Player player1, Player player2, boolean isAI) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Press ENTER to roll the dice...");
+        System.out.println("Press ENTER to play the round...");
+        scanner.nextLine();
+
+        System.out.println(player1.getName() + "'s turn. Press ENTER to roll the dice...");
         scanner.nextLine();
 
         int playerRoll = player1.rollDice();
-        System.out.println(player1.getName() + "'s roll: " + playerRoll);
+        System.out.println(player1.getName() + "'s roll: " + playerRoll + "\n");
 
         int opponentRoll;
 
@@ -90,10 +99,10 @@ public class DiceGame {
             opponentRoll = player2.rollDice();
             System.out.println(player2.getName() + " rolled: " + opponentRoll);
         } else {
-//            System.out.println(player2.getName() + "'s turn. Press ENTER to roll the dice... ");
-//            scanner.nextLine();
+               System.out.println(player2.getName() + "'s turn. Press ENTER to roll the dice... ");
+               scanner.nextLine();
             opponentRoll = player2.rollDice();
-            System.out.println(player2.getName() + " rolled: " + opponentRoll);
+            System.out.println(player2.getName() + " rolled: " + opponentRoll + "\n");
         }
 
         if(playerRoll > opponentRoll) {
